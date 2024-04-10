@@ -16,10 +16,10 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     @Override
     public String save(UrlDao urlDao) {
-        String urlDaoId = urlDao.id();
-        if (urlDaoId != null) {
+        String urlDaoShort = urlDao.shortUrl();
+        if (urlDaoShort != null) {
             dataBase.saveUrl(urlDao);
-            return urlDaoId;
+            return urlDaoShort;
         }
 
         String id = UUID.randomUUID().toString();

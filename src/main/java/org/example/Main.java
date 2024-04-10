@@ -32,22 +32,22 @@ public class Main {
                 }
                 GetShortUrl ggetShortUrl = new GetShortUrl();
                 shortUrl = ggetShortUrl.getShortUrl(longUrl);
-                while (urlController.getUrl(shortUrl) != null) {
-                    longUrl += "grunge";
-                    shortUrl = ggetShortUrl.getShortUrl(longUrl);
-                }
-                String id = urlController.addUrl(new UrlDto(longUrl, shortUrl));
-                System.out.printf("Создана ссылка tinycaturl.com/%s%n", shortUrl);
+//                while (urlController.getUrl(shortUrl) != null) {
+//                    longUrl += "grunge";
+//                    shortUrl = ggetShortUrl.getShortUrl(longUrl);
+//                }
+                String sshortUrl = urlController.addUrl(new UrlDto(longUrl, shortUrl));
+                System.out.printf("Создана ссылка tinycaturl.com/%s%n", sshortUrl);
 
             } else if (chosenService.equals("2")) {
                 System.out.println("Введите короткую ссылку:");
-                String id = ReadUtils.readLine();
+                String sshortUrl = ReadUtils.readLine();
                 try {
-                    UrlDto urlDto = urlController.getUrl(shortUrl);
+                    UrlDto urlDto = urlController.getUrl(sshortUrl);
                     System.out.printf("Найдена ссылка \n С идентификатором %s \n Длинная ссылка %s\n Короткая ссылка %s\n%n",
                             urlDto.id(), urlDto.longUrl(), urlDto.shortUrl());
                 } catch (EntityNotFoundException ex) {
-                    System.out.printf("Ссылка с идентификатором %s не найден%n", id);
+                    System.out.printf("Ссылка с токеном %s не найден%n", sshortUrl);
                 }
             } else if (chosenService.equals("3")) {
                 return;

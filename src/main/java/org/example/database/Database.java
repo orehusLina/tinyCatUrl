@@ -22,9 +22,9 @@ public class Database {
     }
 
     public String saveUrl(UrlDao urlDao) {
-        String id = urlDao.id();
-        getInstance().urlMap.put(id, urlDao);
-        return id;
+        String shortUrl = urlDao.shortUrl();
+        getInstance().urlMap.put(shortUrl, urlDao);
+        return shortUrl;
     }
 
     public UrlDao getUrl(String shortUrl) {
