@@ -5,6 +5,7 @@ import org.example.controller.dto.UrlDto;
 import org.example.exception.EntityNotFoundException;
 import org.example.repository.UrlRepositoryImpl;
 import org.example.service.GetShortUrl;
+import org.example.service.UrlService;
 import org.example.service.UrlServiceImpl;
 import org.example.utils.ReadUtils;
 
@@ -32,10 +33,10 @@ public class Main {
                 }
                 GetShortUrl ggetShortUrl = new GetShortUrl();
                 shortUrl = ggetShortUrl.getShortUrl(longUrl);
-//                while (urlController.getUrl(shortUrl) != null) {
-//                    longUrl += "grunge";
-//                    shortUrl = ggetShortUrl.getShortUrl(longUrl);
-//                }
+                while (urlController.getUrl(shortUrl) != null) {
+                    longUrl += "grunge";
+                    shortUrl = ggetShortUrl.getShortUrl(longUrl);
+                }
                 String sshortUrl = urlController.addUrl(new UrlDto(longUrl, shortUrl));
                 System.out.printf("Создана ссылка tinycaturl.com/%s%n", sshortUrl);
 

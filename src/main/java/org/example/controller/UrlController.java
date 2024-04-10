@@ -19,6 +19,7 @@ public class UrlController {
 
     public UrlDto getUrl(String shortUrl) throws EntityNotFoundException {
         Url url = urlService.findUrl(shortUrl);
+        if (url == null) return null;
         return new UrlDto(url.id(), url.LongUrl(), url.ShortUrl());
     }
 }

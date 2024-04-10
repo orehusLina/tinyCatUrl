@@ -24,6 +24,7 @@ public class UrlServiceImpl implements UrlService {
     @Override
     public Url findUrl(String shortUrl) throws EntityNotFoundException {
         Optional<UrlDao> urlDao = urlRepository.findUrlByShortUrl(shortUrl);
+        if (urlDao.isEmpty()) return null;
         return urlDao.map(url -> new Url(url.id(), url.longUrl(), url.shortUrl())).orElseThrow(() -> new EntityNotFoundException("юрлшечка не найдена"));
     }
 }
