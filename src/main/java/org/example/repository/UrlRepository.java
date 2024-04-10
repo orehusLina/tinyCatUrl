@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface UrlRepository {
 
-    Optional<UrlDao> findUrlById(String id);
+    Optional<UrlDao> findUrlByShortUrl(String shortUrl);
 
     String save(UrlDao urlDao);
 }

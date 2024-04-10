@@ -10,17 +10,16 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     private static final Database dataBase = Database.getInstance();
 
-    @Override
-    public Optional<UrlDao> findUrlById(String id) {
-        return Optional.ofNullable(dataBase.getUrl(id));
+    public Optional<UrlDao> findUrlByShortUrl(String shortUrl) {
+        return Optional.ofNullable(dataBase.getUrl(shortUrl));
     }
 
     @Override
     public String save(UrlDao urlDao) {
-        String catDaoId = urlDao.id();
-        if (catDaoId != null) {
+        String urlDaoId = urlDao.id();
+        if (urlDaoId != null) {
             dataBase.saveUrl(urlDao);
-            return catDaoId;
+            return urlDaoId;
         }
 
         String id = UUID.randomUUID().toString();

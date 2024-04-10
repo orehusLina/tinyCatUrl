@@ -11,18 +11,20 @@ import org.example.utils.ReadUtils;
 import java.security.NoSuchAlgorithmException;
 
 public class Main {
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, EntityNotFoundException {
 
         while (true) {
             UrlController urlController = new UrlController(new UrlServiceImpl(new UrlRepositoryImpl()));
             printMenu();
             String chosenService = ReadUtils.readLine();
 
+            String longUrl = "";
+            String shortUrl = "";
+
             assert chosenService != null;
             if (chosenService.equals("1")) {
                 System.out.println("Введите исходную ссылку");
-                String longUrl = "";
-                String shortUrl = "";
+
                 while (true) {
                     assert longUrl != null;
                     if (!longUrl.isEmpty()) break;
@@ -30,14 +32,18 @@ public class Main {
                 }
                 GetShortUrl ggetShortUrl = new GetShortUrl();
                 shortUrl = ggetShortUrl.getShortUrl(longUrl);
+                while (urlController.getUrl(shortUrl) != null) {
+                    longUrl += "grunge";
+                    shortUrl = ggetShortUrl.getShortUrl(longUrl);
+                }
                 String id = urlController.addUrl(new UrlDto(longUrl, shortUrl));
-                System.out.printf("Создана ссылка с токеном %s%n", shortUrl);
+                System.out.printf("Создана ссылка tinycaturl.com/%s%n", shortUrl);
 
             } else if (chosenService.equals("2")) {
                 System.out.println("Введите короткую ссылку:");
                 String id = ReadUtils.readLine();
                 try {
-                    UrlDto urlDto = urlController.getUrl(id); // поменять поиск по айди на поиск по строке
+                    UrlDto urlDto = urlController.getUrl(shortUrl);
                     System.out.printf("Найдена ссылка \n С идентификатором %s \n Длинная ссылка %s\n Короткая ссылка %s\n%n",
                             urlDto.id(), urlDto.longUrl(), urlDto.shortUrl());
                 } catch (EntityNotFoundException ex) {
@@ -67,6 +73,7 @@ public class Main {
 
     private static void printMenu() {
         System.out.println("""
+                
                 Приложения для работы с ссылками
                                 
                 Выберите действие:

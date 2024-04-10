@@ -23,7 +23,7 @@ public class UrlServiceImpl implements UrlService {
 
     @Override
     public Url findUrl(String id) throws EntityNotFoundException {
-        Optional<UrlDao> catDao = urlRepository.findUrlById(id);
+        Optional<UrlDao> catDao = urlRepository.findUrlByShortUrl(id);
         return catDao.map(cat -> new Url(cat.id(), cat.longUrl(), cat.shortUrl())).orElseThrow(() -> new EntityNotFoundException("юрлшечка не найдена"));
     }
 }

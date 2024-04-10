@@ -27,7 +27,7 @@ public class Database {
         return id;
     }
 
-    public UrlDao getUrl(String id) {
-        return getInstance().urlMap.get(id);
+    public UrlDao getUrl(String shortUrl) {
+        return getInstance().urlMap.get(shortUrl);
     }
 }
