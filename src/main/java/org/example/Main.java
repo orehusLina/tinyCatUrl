@@ -4,11 +4,14 @@ import org.example.controller.UrlController;
 import org.example.controller.dto.UrlDto;
 import org.example.exception.EntityNotFoundException;
 import org.example.repository.UrlRepositoryImpl;
+import org.example.service.GetShortUrl;
 import org.example.service.UrlServiceImpl;
 import org.example.utils.ReadUtils;
 
+import java.security.NoSuchAlgorithmException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
 
         while (true) {
             UrlController urlController = new UrlController(new UrlServiceImpl(new UrlRepositoryImpl()));
@@ -25,8 +28,10 @@ public class Main {
                     if (!longUrl.isEmpty()) break;
                     longUrl = readAndValidateUrl();
                 }
+                GetShortUrl ggetShortUrl = new GetShortUrl();
+                shortUrl = ggetShortUrl.getShortUrl(longUrl);
                 String id = urlController.addUrl(new UrlDto(longUrl, shortUrl));
-                System.out.printf("Создана ссылка с идентификатором %s%n", id);
+                System.out.printf("Создана ссылка с токеном %s%n", shortUrl);
 
             } else if (chosenService.equals("2")) {
                 System.out.println("Введите короткую ссылку:");
