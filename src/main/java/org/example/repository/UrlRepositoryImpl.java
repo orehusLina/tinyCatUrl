@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.database.Database;
+import org.example.exception.EntityNotFoundException;
 import org.example.repository.dao.UrlDao;
 
 import java.util.Optional;
@@ -16,14 +17,16 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     @Override
     public String save(UrlDao urlDao) {
-        String urlDaoShort = urlDao.shortUrl();
-        if (urlDaoShort != null) {
-            dataBase.saveUrl(urlDao);
-            return urlDaoShort;
+        try {
+            String urlDaoShort = urlDao.shortUrl();
+            // if (urlDaoShort != null) {
+                dataBase.saveUrl(urlDao);
+                return urlDaoShort;
+            //}
         }
-
-        String id = UUID.randomUUID().toString();
-        dataBase.saveUrl(new UrlDao(id, urlDao.longUrl(), urlDao.shortUrl()));
-        return id;
+        catch(Exception ex) {
+            System.out.print("Нет короткой ссылки");
+            return null;
+        }
     }
 }
